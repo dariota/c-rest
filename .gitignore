@@ -1,0 +1,6 @@
+template/bin
+template/target
+*.swp
+template/.classpath
+template/.project
+template/.settings
