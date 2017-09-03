@@ -4,3 +4,4 @@ template/target
 template/.classpath
 template/.project
 template/.settings
+lib/build
