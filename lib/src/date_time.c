@@ -47,6 +47,7 @@ void date_from_str(const char * str, struct date_time * d,
 		}
 
 		if ((start[0] & ~32) == 'Z') {
+			d->offset_sign = 1;
 			d->hour_offset = d->minute_offset = 0;
 		} else {
 			tokens = sscanf(&start[1], "%d:%d", &d->hour_offset,
