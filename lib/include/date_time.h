@@ -1,12 +1,14 @@
 #ifndef DATE_TIME_H
 #define DATE_TIME_H
 
-#define S_ERR_DATE_STRING_NULL 1
-#define S_ERR_DATE_NULL        2
-#define S_ERR_DATE_TOKENS      3
-#define S_ERR_TIME_TOKENS      4
-#define S_ERR_TZ_START         5
-#define S_ERR_TZ_OFFSET        6
+#define S_ERR_DATE_STRING_NULL       1
+#define S_ERR_DATE_NULL              2
+#define S_ERR_DATE_TOKENS            3
+#define S_ERR_TIME_TOKENS            4
+#define S_ERR_TZ_START               5
+#define S_ERR_TZ_OFFSET              6
+#define S_ERR_DATE_SPURIOUS_CHARS    7
+#define S_ERR_DATE_INVALID_SEPARATOR 8
 
 #include <stdbool.h>
 
