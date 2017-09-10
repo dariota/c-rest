@@ -22,20 +22,20 @@ void pet_with_json(struct pet * pet, json_t * root, struct swagger_error * error
 		ERR_RETURN(error, "pet must not be null", PET_NULL_PARAMETER);
 	}
 	if (!root) {
-		ERR_RETURN(error, "root must not be null", PET_NULL_PARAMETER);
+		ERR_RETURN(error, "pet root must not be null", PET_NULL_PARAMETER);
 	}
 
 	if (!json_is_object(root)) {
-		ERR_RETURN(error, "root not object", PET_JSON_NOT_VALID);
+		ERR_RETURN(error, "pet root not object", PET_JSON_NOT_VALID);
 	}
 
 	// retrieve and validate id
 	json_t * current_key = json_object_get(root, "id");
 	if (!current_key) {
-		ERR_RETURN(error, "id not present", PET_JSON_NOT_VALID);
+		ERR_RETURN(error, "pet id not present", PET_JSON_NOT_VALID);
 	}
 	if (!json_is_integer(current_key)) {
-		ERR_RETURN(error, "id not valid", PET_JSON_NOT_VALID);
+		ERR_RETURN(error, "pet id not valid", PET_JSON_NOT_VALID);
 	}
 	pet->id = json_integer_value(current_key);
 
@@ -43,10 +43,10 @@ void pet_with_json(struct pet * pet, json_t * root, struct swagger_error * error
 	current_key = json_object_get(root, "tags");
 	if (!current_key) {
 		// TODO this shouldn't fail
-		ERR_RETURN(error, "tags not present", PET_JSON_NOT_VALID);
+		ERR_RETURN(error, "pet tags not present", PET_JSON_NOT_VALID);
 	}
 	if (!json_is_array(current_key)) {
-		ERR_RETURN(error, "tags not valid", PET_JSON_NOT_VALID);
+		ERR_RETURN(error, "pet tags not valid", PET_JSON_NOT_VALID);
 	}
 
 	pet->tags_len = json_array_size(current_key);
@@ -60,10 +60,10 @@ void pet_with_json(struct pet * pet, json_t * root, struct swagger_error * error
 	// retrieve and validate name
 	current_key = json_object_get(root, "name");
 	if (!current_key) {
-		ERR_RETURN(error, "name not present", PET_JSON_NOT_VALID);
+		ERR_RETURN(error, "pet name not present", PET_JSON_NOT_VALID);
 	}
 	if (!json_is_string(current_key)) {
-		ERR_RETURN(error, "name not valid", PET_JSON_NOT_VALID);
+		ERR_RETURN(error, "pet name not valid", PET_JSON_NOT_VALID);
 	}
 	pet->name = json_string_value(current_key);
 
@@ -71,10 +71,10 @@ void pet_with_json(struct pet * pet, json_t * root, struct swagger_error * error
 	current_key = json_object_get(root, "status");
 	if (!current_key) {
 		// TODO this shouldn't fail
-		ERR_RETURN(error, "status not present", PET_JSON_NOT_VALID);
+		ERR_RETURN(error, "pet status not present", PET_JSON_NOT_VALID);
 	}
 	if (!json_is_string(current_key)) {
-		ERR_RETURN(error, "status not valid", PET_JSON_NOT_VALID);
+		ERR_RETURN(error, "pet status not valid", PET_JSON_NOT_VALID);
 	}
 
 	const char * status = json_string_value(current_key);
@@ -85,14 +85,14 @@ void pet_with_json(struct pet * pet, json_t * root, struct swagger_error * error
 	} else if (!strcmp(status, "SOLD")) {
 		pet->status = SOLD;
 	} else {
-		ERR_RETURN(error, "status not valid", PET_JSON_NOT_VALID);
+		ERR_RETURN(error, "pet status not valid", PET_JSON_NOT_VALID);
 	}
 
 	// retrieve and validate category
 	current_key = json_object_get(root, "category");
 	if (!current_key) {
 		// TODO this shouldn't fail
-		ERR_RETURN(error, "category not present", PET_JSON_NOT_VALID);
+		ERR_RETURN(error, "pet category not present", PET_JSON_NOT_VALID);
 	}
 	error->code = S_ERR_OK;
 	category_with_json(&pet->category, current_key, error);
@@ -102,10 +102,10 @@ void pet_with_json(struct pet * pet, json_t * root, struct swagger_error * error
 	current_key = json_object_get(root, "photoUrls");
 	if (!current_key) {
 		// TODO this shouldn't fail
-		ERR_RETURN(error, "photoUrls not present", PET_JSON_NOT_VALID);
+		ERR_RETURN(error, "pet photoUrls not present", PET_JSON_NOT_VALID);
 	}
 	if (!json_is_array(current_key)) {
-		ERR_RETURN(error, "photoUrls not valid", PET_JSON_NOT_VALID);
+		ERR_RETURN(error, "pet photoUrls not valid", PET_JSON_NOT_VALID);
 	}
 
 	pet->photo_urls_len = json_array_size(current_key);
@@ -113,7 +113,7 @@ void pet_with_json(struct pet * pet, json_t * root, struct swagger_error * error
 	for (int i = 0; i < pet->photo_urls_len; i++) {
 		json_t * current_photo_urls = json_array_get(current_key, i);
 		if (!json_is_string(current_photo_urls)) {
-			ERR_RETURN(error, "photoUrls content not valid", PET_JSON_NOT_VALID);
+			ERR_RETURN(error, "pet photoUrls content not valid", PET_JSON_NOT_VALID);
 		}
 		pet->photo_urls[i] = json_string_value(current_photo_urls);
 	}

@@ -21,21 +21,21 @@ void tag_with_json(struct tag * tag, json_t * root, struct swagger_error * error
 		ERR_RETURN(error, "tag must not be null", TAG_NULL_PARAMETER);
 	}
 	if (!root) {
-		ERR_RETURN(error, "root must not be null", TAG_NULL_PARAMETER);
+		ERR_RETURN(error, "tag root must not be null", TAG_NULL_PARAMETER);
 	}
 
 	if (!json_is_object(root)) {
-		ERR_RETURN(error, "root not object", TAG_JSON_NOT_VALID);
+		ERR_RETURN(error, "tag root not object", TAG_JSON_NOT_VALID);
 	}
 
 	// retrieve and validate name
 	json_t * current_key = json_object_get(root, "name");
 	if (!current_key) {
 		// TODO this shouldn't fail
-		ERR_RETURN(error, "name not present", TAG_JSON_NOT_VALID);
+		ERR_RETURN(error, "tag name not present", TAG_JSON_NOT_VALID);
 	}
 	if (!json_is_string(current_key)) {
-		ERR_RETURN(error, "name not valid", TAG_JSON_NOT_VALID);
+		ERR_RETURN(error, "tag name not valid", TAG_JSON_NOT_VALID);
 	}
 	tag->name = json_string_value(current_key);
 
@@ -43,10 +43,10 @@ void tag_with_json(struct tag * tag, json_t * root, struct swagger_error * error
 	current_key = json_object_get(root, "id");
 	if (!current_key) {
 		// TODO this shouldn't fail
-		ERR_RETURN(error, "id not present", TAG_JSON_NOT_VALID);
+		ERR_RETURN(error, "tag id not present", TAG_JSON_NOT_VALID);
 	}
 	if (!json_is_integer(current_key)) {
-		ERR_RETURN(error, "id not valid", TAG_JSON_NOT_VALID);
+		ERR_RETURN(error, "tag id not valid", TAG_JSON_NOT_VALID);
 	}
 	tag->id = json_integer_value(current_key);
 }
