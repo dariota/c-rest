@@ -24,11 +24,14 @@ void parse_with_all_fields_and_null_error_correctly() {
 	su_assert("Error description should be NULL", err.description == NULL);
 	su_assert("ID should be 123456789", pet.id == 123456789);
 	su_assert("Tags length should be 1", pet.tags_len == 1);
-	su_assert("tags[0] ID should be 1234", pet.tags[0].id == 1234);
+	su_assert("tags[0] ID should be 1234", *pet.tags[0].id == 1234);
 	su_assert("tags[0] name should be \"First tag\"", !strcmp(pet.tags[0].name, "First tag"));
 	su_assert("Name should be \"A pet\"", !strcmp(pet.name, "A pet"));
-	su_assert("Status should be available", *(pet.status) == AVAILABLE);
-	su_assert("Category ID should be 987654321", pet.category.id == 987654321);
+	su_assert("Status should not be NULL", pet.status != NULL);
+	su_assert("Status should be available", *pet.status == AVAILABLE);
+	su_assert("Category should not be NULL", pet.category != NULL);
+	su_assert("Category ID should not be NULL", pet.category->id != NULL);
+	su_assert("Category ID should be 987654321", *pet.category->id == 987654321);
 	su_assert("Category name should be \"Cute\"", !strcmp(pet.category->name, "Cute"));
 	su_assert("Photo urls length should be 2", pet.photo_urls_len == 2);
 	su_assert("photo_urls[0] should be pwdca link", !strcmp(pet.photo_urls[0], "http://www.pwdca.org/assets/images/breed/p5.jpg"));
@@ -59,9 +62,9 @@ void parse_with_multiple_tags_correctly() {
 	su_assert("Error description should be NULL", err.description == NULL);
 	su_assert("ID should be 123456789", pet.id == 123456789);
 	su_assert("Tags length should be 2", pet.tags_len == 1);
-	su_assert("tags[0] ID should be 1234", pet.tags[0].id == 1234);
+	su_assert("tags[0] ID should be 1234", *pet.tags[0].id == 1234);
 	su_assert("tags[0] name should be \"First tag\"", !strcmp(pet.tags[0].name, "First tag"));
-	su_assert("tags[1] ID should be 5678", pet.tags[1].id == 5678);
+	su_assert("tags[1] ID should be 5678", *pet.tags[1].id == 5678);
 	su_assert("tags[1] name should be \"Second tag\"", !strcmp(pet.tags[1].name, "Second tag"));
 	su_assert("Name should be \"A pet\"", !strcmp(pet.name, "A pet"));
 }
@@ -95,7 +98,7 @@ void parse_with_any_enum_casing() {
 	su_assert("Should be no error", err.code == S_ERR_OK);
 	su_assert("Error description should be NULL", err.description == NULL);
 	su_assert("ID should be 123456789", pet.id == 123456789);
-	su_assert("Status should be sold", *(pet.status) == SOLD);
+	su_assert("Status should be sold", *pet.status == SOLD);
 }
 
 void fail_with_missing_required_field() {
