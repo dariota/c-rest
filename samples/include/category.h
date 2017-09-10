@@ -9,7 +9,8 @@
 
 struct category {
 	const char * name;
-	int64_t id;
+	int64_t * id;
+	int64_t _id;
 };
 
 struct category * category_from_json(json_t *, struct swagger_error *);

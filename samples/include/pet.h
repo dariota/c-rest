@@ -20,8 +20,10 @@ struct pet {
 	struct tag * tags;
 	size_t tags_len;
 	const char * name;
-	enum pet_status status;
-	struct category category;
+	enum pet_status * status;
+	enum pet_status _status;
+	struct category * category;
+	struct category _category;
 	const char ** photo_urls;
 	size_t photo_urls_len;
 };
