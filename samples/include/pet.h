@@ -22,6 +22,7 @@ struct pet {
 	const char * name;
 	enum pet_status * status;
 	enum pet_status _status;
+	// TODO this won't work when category refers to pet or itself
 	struct category * category;
 	struct category _category;
 	const char ** photo_urls;
