@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include <string.h>
+#include <strings.h>
 
 #include "swagger_error.h"
 
@@ -80,11 +80,11 @@ void pet_with_json(struct pet * pet, json_t * root, struct swagger_error * error
 
 		const char * status = json_string_value(current_key);
 		pet->status = &(pet->_status);
-		if (!strcmp(status, "AVAILABLE")) {
+		if (!strcasecmp(status, "AVAILABLE")) {
 			*(pet->status) = AVAILABLE;
-		} else if (!strcmp(status, "PENDING")) {
+		} else if (!strcasecmp(status, "PENDING")) {
 			*(pet->status) = PENDING;
-		} else if (!strcmp(status, "SOLD")) {
+		} else if (!strcasecmp(status, "SOLD")) {
 			*(pet->status) = SOLD;
 		} else {
 			ERR_RETURN(error, "pet status not valid", PET_JSON_NOT_VALID);
