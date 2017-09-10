@@ -53,7 +53,8 @@ void pet_with_json(struct pet * pet, json_t * root, struct swagger_error * error
 	pet->tags = malloc(sizeof(struct tag) * pet->tags_len);
 	error->code = S_ERR_OK;
 	for (int i = 0; i < pet->tags_len; i++) {
-		tag_with_json(&pet->tags[i], current_key, error);
+		json_t * current_tags = json_array_get(current_key, i);
+		tag_with_json(&pet->tags[i], current_tags, error);
 		if (error->code != S_ERR_OK) return;
 	}
 
