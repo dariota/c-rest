@@ -31,24 +31,25 @@ void tag_with_json(struct tag * tag, json_t * root, struct swagger_error * error
 	// retrieve and validate name
 	json_t * current_key = json_object_get(root, "name");
 	if (!current_key) {
-		// TODO this shouldn't fail
-		ERR_RETURN(error, "tag name not present", TAG_JSON_NOT_VALID);
+		tag->name = NULL;
+	} else {
+		if (!json_is_string(current_key)) {
+			ERR_RETURN(error, "tag name not valid", TAG_JSON_NOT_VALID);
+		}
+		tag->name = json_string_value(current_key);
 	}
-	if (!json_is_string(current_key)) {
-		ERR_RETURN(error, "tag name not valid", TAG_JSON_NOT_VALID);
-	}
-	tag->name = json_string_value(current_key);
 
 	// retrieve and validate id
 	current_key = json_object_get(root, "id");
 	if (!current_key) {
-		// TODO this shouldn't fail
-		ERR_RETURN(error, "tag id not present", TAG_JSON_NOT_VALID);
+		tag->id = NULL;
+	} else {
+		tag->id = &(tag->_id);
+		if (!json_is_integer(current_key)) {
+			ERR_RETURN(error, "tag id not valid", TAG_JSON_NOT_VALID);
+		}
+		*(tag->id) = json_integer_value(current_key);
 	}
-	if (!json_is_integer(current_key)) {
-		ERR_RETURN(error, "tag id not valid", TAG_JSON_NOT_VALID);
-	}
-	tag->id = json_integer_value(current_key);
 }
 
 void free_tag(struct tag * tag) {

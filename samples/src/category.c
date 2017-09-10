@@ -31,24 +31,25 @@ void category_with_json(struct category * category, json_t * root, struct swagge
 	// retrieve and validate name
 	json_t * current_key = json_object_get(root, "name");
 	if (!current_key) {
-		// TODO this shouldn't fail
-		ERR_RETURN(error, "category name not present", CATEGORY_JSON_NOT_VALID);
+		category->name = NULL;
+	} else {
+		if (!json_is_string(current_key)) {
+			ERR_RETURN(error, "category name not valid", CATEGORY_JSON_NOT_VALID);
+		}
+		category->name = json_string_value(current_key);
 	}
-	if (!json_is_string(current_key)) {
-		ERR_RETURN(error, "category name not valid", CATEGORY_JSON_NOT_VALID);
-	}
-	category->name = json_string_value(current_key);
 
 	// retrieve and validate id
 	current_key = json_object_get(root, "id");
 	if (!current_key) {
-		// TODO this shouldn't fail
-		ERR_RETURN(error, "category id not present", CATEGORY_JSON_NOT_VALID);
+		category->id = NULL;
+	} else {
+		category->id = &(category->_id);
+		if (!json_is_integer(current_key)) {
+			ERR_RETURN(error, "category id not valid", CATEGORY_JSON_NOT_VALID);
+		}
+		*(category->id) = json_integer_value(current_key);
 	}
-	if (!json_is_integer(current_key)) {
-		ERR_RETURN(error, "category id not valid", CATEGORY_JSON_NOT_VALID);
-	}
-	category->id = json_integer_value(current_key);
 }
 
 void free_category(struct category * category) {
