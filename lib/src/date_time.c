@@ -38,7 +38,7 @@ void date_from_str(const char * str, struct date_time * d,
 	if (start == NULL) {
 		ERR_RETURN(err, "Invalid separator", S_ERR_DATE_INVALID_SEPARATOR);
 	} else if (*start == '\0') {
-		d->hour = d->minute = d->second = d->hour_offset = d->minute_offset = 0;
+		d->hour = d->minute = d->second = d->offset_sign = d->hour_offset = d->minute_offset = 0;
 	} else {
 		tokens = sscanf(&start[1], "%d:%d:%d", &d->hour, &d->minute, &d->second);
 
