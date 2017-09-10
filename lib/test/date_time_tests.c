@@ -1,16 +1,14 @@
 #include <stdlib.h>
 
-#include "date_time.h"
-#include "sunit.h"
+#include "../include/date_time.h"
+#include "include/sunit.h"
 
 #define SETUP() \
 struct date_time date;\
 struct swagger_error err;\
 init_error(&err)
 
-char * message = NULL;
-int tests_run = 0;
-int tests_failed = 0;
+SU_SETUP
 
 void parse_date_only_correctly() {
 	SETUP();
@@ -209,6 +207,4 @@ int main() {
 	su_run_test(fail_invalid_separator_char);
 
 	su_test_summary();
-
-	return tests_failed;
 }

@@ -29,7 +29,13 @@ do {\
 do {\
 	fprintf(stderr, "\nRan %d test(s), %d failure(s), %d success(es).\n",\
 			tests_run, tests_failed, tests_run - tests_failed);\
+	return tests_failed;\
 } while (0)
+#define SU_SETUP \
+char * message = NULL;\
+int tests_run = 0;\
+int tests_failed = 0;
+
 
 extern int tests_run;
 extern int tests_failed;
