@@ -61,7 +61,7 @@ void parse_with_multiple_tags_correctly() {
 	su_assert("Should be no error", err.code == S_ERR_OK);
 	su_assert("Error description should be NULL", err.description == NULL);
 	su_assert("ID should be 123456789", pet.id == 123456789);
-	su_assert("Tags length should be 2", pet.tags_len == 1);
+	su_assert("Tags length should be 2", pet.tags_len == 2);
 	su_assert("tags[0] ID should be 1234", *pet.tags[0].id == 1234);
 	su_assert("tags[0] name should be \"First tag\"", !strcmp(pet.tags[0].name, "First tag"));
 	su_assert("tags[1] ID should be 5678", *pet.tags[1].id == 5678);
@@ -145,6 +145,7 @@ int main() {
 	su_run_test(parse_with_extra_field_correctly);
 	su_run_test(parse_with_multiple_tags_correctly);
 	su_run_test(parse_with_only_required_fields_correctly);
+	su_run_test(parse_with_any_enum_casing);
 	su_run_test(fail_with_missing_required_field);
 	su_run_test(fail_with_null_parameters);
 	su_run_test(fail_with_non_object_root);
